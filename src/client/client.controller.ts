@@ -31,18 +31,25 @@ export class ClientController {
     return this.clientService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.clientService.findOne(+id);
+  @Get(':email')
+  findOne(@Param('email') email: string) {
+    return this.clientService.findOne(email);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateClientDto: UpdateClientDto) {
-    return this.clientService.update(+id, updateClientDto);
+  @Patch(':email')
+  async update(
+    @Param('email') email: string,
+    @Body() updateClientDto: UpdateClientDto,
+  ) {
+    try {
+      return await this.clientService.update(email, updateClientDto);
+    } catch (e) {
+      return e?.detail || e?.message;
+    }
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.clientService.remove(+id);
+  @Delete(':email')
+  remove(@Param('email') email: string) {
+    return this.clientService.remove(email);
   }
 }

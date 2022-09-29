@@ -20,15 +20,17 @@ export class ClientService {
     return this.clientRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} client`;
+  findOne(email: string) {
+    return this.clientRepository.findOne({
+      where: { email },
+    });
   }
 
-  update(id: number, updateClientDto: UpdateClientDto) {
-    return `This action updates a #${id} client`;
+  update(email: string, updateClientDto: UpdateClientDto) {
+    return this.clientRepository.update({ email }, updateClientDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} client`;
+  remove(email: string) {
+    return this.clientRepository.delete(email);
   }
 }
