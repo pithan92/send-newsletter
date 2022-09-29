@@ -1,4 +1,4 @@
-import { validadeEmail, validateBirthDay } from 'src/Util';
+import { validadeEmail, validateBirthDay } from '../../Util';
 import { errorMessage } from '../../error-message';
 
 export default class CreateClientDto {
