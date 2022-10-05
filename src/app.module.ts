@@ -4,7 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { NewsletterModule } from './newsletter/newsletter.module';
 import { ClientModule } from './client/client.module';
-import { Client } from './client/entities/client.entity';
+import { ClientEntity } from './client/entities/client.entity';
 import { Newsletter } from './newsletter/entities/newsletter.entity';
 
 @Module({
@@ -16,7 +16,7 @@ import { Newsletter } from './newsletter/entities/newsletter.entity';
       username: 'postgres',
       password: 'postgres',
       database: 'sendEmail',
-      entities: [Client, Newsletter],
+      entities: [ClientEntity, Newsletter],
       synchronize: true,
     }),
     NewsletterModule,
