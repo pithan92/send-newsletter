@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { errorMessage } from 'src/error-message';
 import { Repository } from 'typeorm';
 import CreateClientDto from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';

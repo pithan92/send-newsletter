@@ -6,6 +6,10 @@ import {
   Patch,
   Param,
   Delete,
+  Response,
+  InternalServerErrorException,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { ClientService } from './client.service';
 import CreateClientDto from './dto/create-client.dto';
@@ -17,12 +21,16 @@ export class ClientController {
 
   @Post()
   async create(@Body() createClientDto: CreateClientDto) {
-    const { name, email, birthDay } = createClientDto;
     try {
+      const { name, email, birthDay } = createClientDto;
       const newClient = new CreateClientDto(name, email, birthDay);
       return await this.clientService.create(newClient);
     } catch (e) {
-      return e?.detail || e?.message;
+      if (e instanceof HttpException) {
+        return e;
+      } else {
+        throw new InternalServerErrorException(e?.detail || e?.message);
+      }
     }
   }
 

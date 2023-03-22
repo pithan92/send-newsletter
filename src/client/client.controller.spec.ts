@@ -56,7 +56,7 @@ describe('ClientController', () => {
       expect(result).toEqual(clientEntityList);
       expect(clientService.findAll).toHaveBeenCalledTimes(1);
     });
-    it('shoul throw an exception', () => {
+    it('should throw an exception', () => {
       jest.spyOn(clientService, 'findAll').mockRejectedValueOnce(new Error());
       expect(clientController.findAll()).rejects.toThrowError();
     });
