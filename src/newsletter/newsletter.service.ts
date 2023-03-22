@@ -1,26 +1,55 @@
 import { Injectable } from '@nestjs/common';
+
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateNewsletterDto } from './dto/create-newsletter.dto';
 import { UpdateNewsletterDto } from './dto/update-newsletter.dto';
+import { NewsletterEntity } from './entities/newsletter.entity';
 
 @Injectable()
 export class NewsletterService {
-  create(createNewsletterDto: CreateNewsletterDto) {
-    return 'This action adds a new newsletter';
+  constructor(
+    @InjectRepository(NewsletterEntity)
+    private newsletterRepository: Repository<NewsletterEntity>,
+  ) {}
+
+  async create(createNewsletterDto: CreateNewsletterDto) {
+    const { title, description, link } = createNewsletterDto;
+    const newNews: Partial<NewsletterEntity> = {
+      title,
+      description,
+      link,
+      processed: false,
+    };
+    return await this.newsletterRepository.save(newNews);
   }
 
-  findAll() {
-    return `This action returns all newsletter`;
+  findAll(): Promise<NewsletterEntity[]> {
+    return this.newsletterRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} newsletter`;
+  findOne(id: string) {
+    return this.newsletterRepository.findOne({
+      where: { id },
+    });
+  }
+  findJobForEmail() {
+    return this.newsletterRepository.findOne({
+      where: { processed: false },
+    });
+  }
+  update(id: string, updateNewsletterDto: UpdateNewsletterDto) {
+    const { title, description, link, processed } = updateNewsletterDto;
+    const updateNews: Partial<NewsletterEntity> = {
+      title,
+      description,
+      link,
+      processed,
+    };
+    return this.newsletterRepository.update({ id }, updateNews);
   }
 
-  update(id: number, updateNewsletterDto: UpdateNewsletterDto) {
-    return `This action updates a #${id} newsletter`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} newsletter`;
+  remove(id: string) {
+    return this.newsletterRepository.delete(id);
   }
 }

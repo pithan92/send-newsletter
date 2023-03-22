@@ -4,11 +4,14 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { NewsletterModule } from './newsletter/newsletter.module';
 import { ClientModule } from './client/client.module';
-import { Client } from './client/entities/client.entity';
-import { Newsletter } from './newsletter/entities/newsletter.entity';
+import { ClientEntity } from './client/entities/client.entity';
+import { NewsletterEntity } from './newsletter/entities/newsletter.entity';
+import { ScheduleModule } from '@nestjs/schedule';
+import { TasksService } from './task/tasks.service';
 
 @Module({
   imports: [
+    ScheduleModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
@@ -16,13 +19,13 @@ import { Newsletter } from './newsletter/entities/newsletter.entity';
       username: 'postgres',
       password: 'postgres',
       database: 'sendEmail',
-      entities: [Client, Newsletter],
+      entities: [ClientEntity, NewsletterEntity],
       synchronize: true,
     }),
     NewsletterModule,
     ClientModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, TasksService],
 })
 export class AppModule {}
