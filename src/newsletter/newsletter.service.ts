@@ -33,7 +33,11 @@ export class NewsletterService {
       where: { id },
     });
   }
-
+  findJobForEmail() {
+    return this.newsletterRepository.findOne({
+      where: { processed: false },
+    });
+  }
   update(id: string, updateNewsletterDto: UpdateNewsletterDto) {
     const { title, description, link, processed } = updateNewsletterDto;
     const updateNews: Partial<NewsletterEntity> = {

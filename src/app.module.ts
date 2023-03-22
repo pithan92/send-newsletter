@@ -7,7 +7,7 @@ import { ClientModule } from './client/client.module';
 import { ClientEntity } from './client/entities/client.entity';
 import { NewsletterEntity } from './newsletter/entities/newsletter.entity';
 import { ScheduleModule } from '@nestjs/schedule';
-import { TasksService } from './task/tasks-service';
+import { TasksService } from './task/tasks.service';
 
 @Module({
   imports: [

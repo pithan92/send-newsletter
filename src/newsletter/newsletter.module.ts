@@ -8,5 +8,6 @@ import { NewsletterEntity } from './entities/newsletter.entity';
   imports: [TypeOrmModule.forFeature([NewsletterEntity])],
   controllers: [NewsletterController],
   providers: [NewsletterService],
+  exports: [NewsletterService],
 })
 export class NewsletterModule {}

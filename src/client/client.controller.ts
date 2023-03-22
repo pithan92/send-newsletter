@@ -6,10 +6,8 @@ import {
   Patch,
   Param,
   Delete,
-  Response,
   InternalServerErrorException,
   HttpException,
-  HttpStatus,
 } from '@nestjs/common';
 import { ClientService } from './client.service';
 import CreateClientDto from './dto/create-client.dto';
