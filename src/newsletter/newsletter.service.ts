@@ -34,7 +34,7 @@ export class NewsletterService {
     });
   }
   findJobForEmail() {
-    return this.newsletterRepository.findOne({
+    return this.newsletterRepository.find({
       where: { processed: false },
     });
   }

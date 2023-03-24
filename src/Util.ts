@@ -15,3 +15,9 @@ export const validadeEmail = (email: string) => {
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
   return regexExp.test(email) ? email : null;
 };
+export const isBirthDay = (date: string) => {
+  const dateBirthDay = _.parse(date, 'dd/MM/yyyy', new Date());
+  const toDay = new Date();
+  const aniversarioAtual = _.setYear(dateBirthDay, toDay.getFullYear());
+  return _.isSameDay(aniversarioAtual, toDay);
+};
